@@ -16,7 +16,7 @@ Aplicación Angular que visualiza los requerimientos del proyecto:
 
 ### 1. Clonar Repositorio
 ```bash
-git clone [URL_DEL_REPOSITORIO]
+git clone https://github.com/Ewin24/salesDate-prediction.git
 cd frontend
 ```
 
