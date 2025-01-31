@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+.cdk-overlay-container .mat-select-panel,
+.mat-form-field-infix,
+.mat-select-trigger {
+  background: #fff !important;
+  color: #000 !important; /* Ajusta si tu texto sale muy claro */
+}

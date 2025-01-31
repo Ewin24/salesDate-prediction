@@ -1,0 +1,89 @@
+<mat-dialog-content class="orders-modal-content">
+  <mat-toolbar color="warn">
+    <span>Customer {{ data.customerId }} - Orders</span>
+  </mat-toolbar>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1 full-width-table">
+      <!-- Order ID -->
+      <ng-container matColumnDef="orderId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.orderId }}
+        </td>
+      </ng-container>
+
+      <!-- Order Date -->
+      <ng-container matColumnDef="orderDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Date</th>
+        <td mat-cell *matCellDef="let element">
+          <!-- Usamos Angular date pipe para formatear la fecha ISO -->
+          {{ element.orderDate | date : "shortDate" }}
+        </td>
+      </ng-container>
+
+      <!-- Required Date -->
+      <ng-container matColumnDef="requiredDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Required Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.requiredDate | date : "shortDate" }}
+        </td>
+      </ng-container>
+
+      <!-- Shipped Date -->
+      <ng-container matColumnDef="shippedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Shipped Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shippedDate | date : "shortDate" }}
+        </td>
+      </ng-container>
+
+      <!-- Ship Name -->
+      <ng-container matColumnDef="shipName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shipName }}
+        </td>
+      </ng-container>
+
+      <!-- Ship Address -->
+      <ng-container matColumnDef="shipAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship Address</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shipAddress }}
+        </td>
+      </ng-container>
+
+      <!-- Ship City -->
+      <ng-container matColumnDef="shipCity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship City</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shipCity }}
+        </td>
+      </ng-container>
+
+      <!-- Ship Country -->
+      <ng-container matColumnDef="shipCountry">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship Country</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.shipCountry }}
+        </td>
+      </ng-container>
+
+      <!-- HEADER ROW -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- ROWS -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons="false"
+  ></mat-paginator>
+  <button mat-raised-button color="primary" (click)="closeDialog()">
+    Close
+  </button>
+</mat-dialog-actions>

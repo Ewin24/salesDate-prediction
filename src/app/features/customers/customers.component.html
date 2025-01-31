@@ -1,0 +1,58 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow">
+  <div class="mb-4">
+    <input
+      (keyup)="applyFilter($event)"
+      placeholder="Search customer..."
+      class="w-full px-4 py-2 border rounded-lg"
+    />
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort class="w-full">
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.customerName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastOrderDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Order Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.lastOrderDate | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nextPredictedOrderDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Next Predicted Order
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.nextPredictedOrderDate | date }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row">
+        <button
+          (click)="openOrders(row)"
+          class="text-red-500 px-3 py-1 rounded mr-2"
+        >
+          VIEW ORDERS
+        </button>
+        <button
+          (click)="openNewOrder(row)"
+          class="text-green-600 px-3 py-1 rounded"
+        >
+          NEW ORDER
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="text-center" mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </mat-table>
+
+  <mat-paginator
+    class="mt-4 flex justify-center"
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

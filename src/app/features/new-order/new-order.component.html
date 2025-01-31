@@ -1,0 +1,192 @@
+<!-- new-order.component.html -->
+
+<!-- Header -->
+<div class="bg-green-600 text-white p-4">
+  <h2 class="text-xl font-bold">Customer {{ data.customerId }} - New Order</h2>
+</div>
+
+<!-- Contenedor del formulario -->
+<div class="flex-1 overflow-y-auto p-6 max-h-[80vh]">
+  <form [formGroup]="orderForm" class="space-y-6">
+    <!-- Sección Order -->
+    <div class="space-y-4">
+      <h3 class="text-lg font-semibold border-b pb-2">Order Information</h3>
+
+      <!-- Employee y Shipper -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Employee *</label>
+          <select
+            formControlName="employeeId"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          >
+            <option *ngFor="let emp of employees" [value]="emp.empId">
+              {{ emp.firstName }} {{ emp.lastName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Shipper *</label>
+          <select
+            formControlName="shipperId"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          >
+            <option *ngFor="let ship of shippers" [value]="ship.shipperid">
+              {{ ship.companyname }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Shipping Info -->
+      <div class="space-y-4">
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Ship Name *</label>
+          <input
+            type="text"
+            formControlName="shipName"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="space-y-1">
+            <label class="block text-sm font-medium">Ship Address *</label>
+            <input
+              type="text"
+              formControlName="shipAddress"
+              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-sm font-medium">Ship City *</label>
+            <input
+              type="text"
+              formControlName="shipCity"
+              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-sm font-medium">Ship Country *</label>
+            <input
+              type="text"
+              formControlName="shipCountry"
+              class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Fechas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Order Date *</label>
+          <input
+            type="date"
+            formControlName="orderDate"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Required Date *</label>
+          <input
+            type="date"
+            formControlName="requiredDate"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Shipped Date *</label>
+          <input
+            type="date"
+            formControlName="shippedDate"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="block text-sm font-medium">Freight *</label>
+        <input
+          type="number"
+          formControlName="freight"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        />
+      </div>
+    </div>
+
+    <!-- Sección Order Details -->
+    <!-- Sección Order Details -->
+    <div formGroupName="orderDetails" class="space-y-4">
+      <h3 class="text-lg font-semibold border-b pb-2">Order Details</h3>
+
+      <div class="space-y-1">
+        <label class="block text-sm font-medium">Product *</label>
+        <select
+          formControlName="productId"
+          (change)="updateUnitPrice()"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        >
+          <option *ngFor="let p of products" [value]="p.productId">
+            {{ p.productName }} - ${{ p.unitPrice }}
+          </option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Unit Price *</label>
+          <input
+            type="number"
+            formControlName="unitPrice"
+            readonly
+            class="w-full p-2 border rounded-md bg-gray-100 cursor-not-allowed"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Quantity *</label>
+          <input
+            type="number"
+            formControlName="quantity"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-sm font-medium">Discount (%) *</label>
+          <input
+            type="number"
+            formControlName="discount"
+            class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Botones Fijos -->
+<div class="border-t p-4 bg-gray-50">
+  <div class="flex justify-end gap-4">
+    <button
+      type="button"
+      (click)="closeDialog()"
+      class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+    >
+      CLOSE
+    </button>
+    <button
+      type="submit"
+      (click)="saveOrder()"
+      class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700"
+    >
+      SAVE
+    </button>
+  </div>
+</div>
